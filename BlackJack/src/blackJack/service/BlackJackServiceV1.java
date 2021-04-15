@@ -12,6 +12,7 @@ public class BlackJackServiceV1 implements BlackJackService {
 
 	public BlackJackServiceV1() {
 		card = new ArrayList<BlackJackVO>();
+		// 생성과 동시에 카드 생성
 		this.makeCard();
 	}
 	
@@ -19,12 +20,17 @@ public class BlackJackServiceV1 implements BlackJackService {
 	public void startGame() {
 		
 		BlackJackVO vo = new BlackJackVO();
+		// 카드 분배
 		String takeCard = this.takeCard();
 		card.get(0).setdCard(takeCard);
 		takeCard = this.takeCard();
 		card.get(0).setgCard(takeCard);
-		
+		takeCard = this.takeCard();
+		card.get(0).setdCard(takeCard);
+		takeCard = this.takeCard();
+		card.get(0).setgCard(takeCard);
 		card.add(vo);
+		// 딜러와 게이머 각각 2장씩 받음
 		
 		System.out.println(this.takeCard());
 		System.out.println(takeCard);
