@@ -10,7 +10,9 @@ public class test {
 
 		BlackJackService black = new BlackJackServiceV1();
 		
-		black.makeCard();
+		black.startGame();
+		
+		
 	}
 
 }

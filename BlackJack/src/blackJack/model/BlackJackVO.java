@@ -7,6 +7,8 @@ public class BlackJackVO {
 	private String dCard;
 	
 	
+	
+	
 	public String gettCard() {
 		return tCard;
 	}
@@ -16,14 +18,14 @@ public class BlackJackVO {
 	public String getgCard() {
 		return gCard;
 	}
-	public void setgCard(String gCard) {
-		this.gCard = gCard;
+	public void setgCard(String takeCard) {
+		this.gCard = takeCard;
 	}
 	public String getdCard() {
 		return dCard;
 	}
-	public void setdCard(String dCard) {
-		this.dCard = dCard;
+	public void setdCard(String takeCard) {
+		this.dCard = takeCard;
 	}
 	
 }

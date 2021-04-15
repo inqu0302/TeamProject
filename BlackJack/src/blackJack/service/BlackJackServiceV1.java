@@ -2,6 +2,7 @@ package blackJack.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import blackJack.model.BlackJackVO;
 
@@ -11,7 +12,26 @@ public class BlackJackServiceV1 implements BlackJackService {
 
 	public BlackJackServiceV1() {
 		card = new ArrayList<BlackJackVO>();
-
+		this.makeCard();
+	}
+	
+	@Override
+	public void startGame() {
+		
+		BlackJackVO vo = new BlackJackVO();
+		String takeCard = this.takeCard();
+		card.get(0).setdCard(takeCard);
+		takeCard = this.takeCard();
+		card.get(0).setgCard(takeCard);
+		
+		card.add(vo);
+		
+		System.out.println(this.takeCard());
+		System.out.println(takeCard);
+	
+		System.out.println(card.get(0).getdCard());
+		System.out.println(card.get(0).getgCard());
+		
 	}
 
 	@Override
@@ -44,19 +64,36 @@ public class BlackJackServiceV1 implements BlackJackService {
 				card.add(VO);
 			}
 		}
-		BlackJackVO returned = card.remove(5);
+		
+		
+		
+//		String takeCard = card.remove(5);
 		for(int i = 0 ; i < card.size(); i++) {
 			
 			System.out.println(card.get(i).gettCard());
 		}
 		System.out.println();
+		
+		
+		
 	}
-	
 
 	@Override
-	public void takeCard() {
+	public String takeCard() {
 		// TODO 카드를 나눠주는 메서드
+		Random rnd = new Random();
 		
+		BlackJackVO randomCard = card.get(rnd.nextInt(card.size()));
+		
+//		(card.remove(rnd.nextInt(card.size())));		
+//		
+//		VO.setdCard(null);
+		
+		int rndNum = rnd.nextInt(card.size());
+		
+		card.get(rndNum).getdCard();
+		
+		return card.get(rndNum).gettCard();
 	}
 
 	@Override
