@@ -4,9 +4,9 @@ import blackJack.model.BlackJackVO;
 
 public interface BlackJackService {
 
+	public void mainMenu(); 
 	public void startGame();
 	public void makeCard();
 	public String takeCard();
-	public void checkCard();
-	
+	public void addCard();
 }

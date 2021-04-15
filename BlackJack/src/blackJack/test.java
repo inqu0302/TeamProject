@@ -10,7 +10,7 @@ public class test {
 
 		BlackJackService black = new BlackJackServiceV1();
 		
-		black.startGame();
+		black.mainMenu();
 		
 		
 	}
