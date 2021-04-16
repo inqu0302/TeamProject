@@ -9,4 +9,5 @@ public interface BlackJackService {
 	public void makeCard();
 	public String takeCard();
 	public void addCard();
+	public void checkScore();
 }

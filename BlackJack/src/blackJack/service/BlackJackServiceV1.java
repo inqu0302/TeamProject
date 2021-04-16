@@ -13,13 +13,17 @@ public class BlackJackServiceV1 implements BlackJackService {
 	protected Scanner scan;
 	protected Integer score;
 	protected String takeCard;
-	
+	protected Integer gamerIndex;
+	protected Integer dealerIndex;
 	
 	public BlackJackServiceV1() {
 		card = new ArrayList<BlackJackVO>();
 		scan = new Scanner(System.in);
 		score = null;
 		takeCard = null;
+		
+		gamerIndex = 0;
+		dealerIndex = 0;
 		// 생성과 동시에 카드 생성
 		this.makeCard();
 	}
@@ -50,24 +54,29 @@ public class BlackJackServiceV1 implements BlackJackService {
 		//TODO 게임 시작 및 카드 2장 분배
 		// 카드 분배
 		takeCard = this.takeCard();
-		card.get(0).setDealerCard(takeCard);
-		card.get(0).setDealerScore(score);
-
-		takeCard = this.takeCard();
-		card.get(0).setGamerCard(takeCard);
-		card.get(0).setGamerScore(score);
+		card.get(dealerIndex).setDealerCard(takeCard);
+		card.get(dealerIndex).setDealerScore(score);
+		dealerIndex++;
 		
 		takeCard = this.takeCard();
-		card.get(1).setDealerCard(takeCard);
-		card.get(1).setDealerScore(score);
+		card.get(gamerIndex).setGamerCard(takeCard);
+		card.get(gamerIndex).setGamerScore(score);
+		gamerIndex++;
 		
 		takeCard = this.takeCard();
-		card.get(1).setGamerCard(takeCard);
-		card.get(1).setGamerScore(score);
+		card.get(dealerIndex).setDealerCard(takeCard);
+		card.get(dealerIndex).setDealerScore(score);
+		
+		takeCard = this.takeCard();
+		card.get(gamerIndex).setGamerCard(takeCard);
+		card.get(gamerIndex).setGamerScore(score);
+		gamerIndex++;
+		
 		// 딜러와 게이머 각각 2장씩 받음
 		System.out.println("게임을 시작합니다.");
 		System.out.println("카드를 2장 받았습니다.");
 		System.out.println("당신의 카드는");
+		
 		System.out.print(card.get(0).getGamerCard() + "\t");
 		System.out.println(card.get(1).getGamerCard() + "입니다.");
 		this.addCard();
@@ -85,18 +94,47 @@ public class BlackJackServiceV1 implements BlackJackService {
 	@Override
 	public void addCard() {
 		// TODO 카드 추가 메서드
+		int gamerScore = 0;
 		while(true) {
+			System.out.println("=".repeat(80));
 			System.out.println("카드를 추가하시겠습니까??");
 			System.out.print("(Y / N)");
 			String yesORno = scan.nextLine();
 			if(yesORno.equals("Y")) {
 				takeCard = this.takeCard();
-				card.get(1).setGamerCard(takeCard);
-				card.get(1).setGamerScore(score);
+				card.get(gamerIndex).setGamerCard(takeCard);
+				card.get(gamerIndex).setGamerScore(score);
+				gamerIndex++;
+				
+				for(int i = 0 ; i < gamerIndex ; i++) {
+					System.out.print(card.get(i).getGamerCard() + "\t");
+					gamerScore += card.get(i).getGamerScore(); 
+				}
+				if( gamerScore >21) {
+					System.out.println("카드의 합이 21이 넘어 당신의 패배입니다.");
+					return;
+				} else if(gamerScore == 21) {
+					System.out.println("!!Black Jack!!");
+					System.out.println("축하합니다 당신의 승리입니다.");
+					return;
+				}
+				System.out.printf("당신의 카드의 합은 %d 입니다\n", gamerScore);
+				continue;
+			}else if(yesORno.equals("N")) {
+				
+				if(gamerScore <= 16) {
+					System.out.println("카드의 합이 17 이상이어야 합니다.");
+					continue;
+				} else {
+					this.checkScore();
+					return;
+				}
 			}
+			System.out.println("다시 입력해 주세요");
+			continue;
 			
 		}
-		
+			
 		
 	}
 
@@ -158,6 +196,13 @@ public class BlackJackServiceV1 implements BlackJackService {
 		card.remove(rndNum);
 		
 		return takeCard;
+	}
+
+	@Override
+	public void checkScore() {
+		// TODO 점수를 계산하여 승패를 나누는 메서드
+		
+		
 	}
 
 
