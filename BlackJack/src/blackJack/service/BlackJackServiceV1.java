@@ -129,10 +129,10 @@ public class BlackJackServiceV1 implements BlackJackService {
 					this.checkScore();
 					return;
 				}
+			}else {
+				System.out.println("다시 입력해 주세요");
+				continue;
 			}
-			System.out.println("다시 입력해 주세요");
-			continue;
-			
 		}
 			
 		
