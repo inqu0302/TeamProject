@@ -15,6 +15,8 @@ public class BlackJackServiceV1 implements BlackJackService {
 	protected String takeCard;
 	protected Integer gamerIndex;
 	protected Integer dealerIndex;
+	protected int gamerScore;
+	protected int dealerScore;
 	
 	public BlackJackServiceV1() {
 		card = new ArrayList<BlackJackVO>();
@@ -22,8 +24,7 @@ public class BlackJackServiceV1 implements BlackJackService {
 		score = null;
 		takeCard = null;
 		
-		gamerIndex = 0;
-		dealerIndex = 0;
+		
 		// 생성과 동시에 카드 생성
 		this.makeCard();
 	}
@@ -53,6 +54,12 @@ public class BlackJackServiceV1 implements BlackJackService {
 	public void startGame() {
 		//TODO 게임 시작 및 카드 2장 분배
 		// 카드 분배
+		gamerIndex = 0;
+		dealerIndex = 0;
+		
+		gamerScore = 0;
+		dealerScore = 0;
+		
 		takeCard = this.takeCard();
 		card.get(dealerIndex).setDealerCard(takeCard);
 		card.get(dealerIndex).setDealerScore(score);
@@ -66,6 +73,7 @@ public class BlackJackServiceV1 implements BlackJackService {
 		takeCard = this.takeCard();
 		card.get(dealerIndex).setDealerCard(takeCard);
 		card.get(dealerIndex).setDealerScore(score);
+		dealerIndex++;
 		
 		takeCard = this.takeCard();
 		card.get(gamerIndex).setGamerCard(takeCard);
@@ -94,7 +102,6 @@ public class BlackJackServiceV1 implements BlackJackService {
 	@Override
 	public void addCard() {
 		// TODO 카드 추가 메서드
-		int gamerScore = 0;
 		while(true) {
 			System.out.println("=".repeat(80));
 			System.out.println("카드를 추가하시겠습니까??");
@@ -201,7 +208,32 @@ public class BlackJackServiceV1 implements BlackJackService {
 	@Override
 	public void checkScore() {
 		// TODO 점수를 계산하여 승패를 나누는 메서드
+		for(int i = 0 ; i < dealerIndex ; i++) {
+			
+			dealerScore += card.get(i).getDealerScore();
+		}
 		
+		if(dealerScore <= 16) {
+			takeCard = this.takeCard();
+			card.get(dealerIndex).setDealerCard(takeCard);
+			card.get(dealerIndex).setDealerScore(score);
+			dealerScore += card.get(dealerIndex).getDealerScore();
+		}
+		for(int i = 0 ; i < dealerIndex ; i++) {
+			
+			System.out.print(card.get(i).getDealerCard() + "\t");
+			System.out.println(dealerScore);
+		}
+		
+		int sum = dealerScore - gamerScore;
+		
+		if(sum < 0 ) {
+			System.out.println("플레이어 승리!!");
+		} else if(sum == 0) {
+			System.out.println("무승부 입니다.");
+		} else if(sum > 0) {
+			System.out.println("딜러의 승리");
+		}
 		
 	}
 
