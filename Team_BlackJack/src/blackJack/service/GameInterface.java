@@ -14,5 +14,5 @@ public interface GameInterface {
 
 	public Integer rule();
 
-	public void printResult();
+	public void printResult(Integer result);
 }

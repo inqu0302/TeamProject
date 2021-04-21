@@ -10,7 +10,7 @@ public class BlackJackServiceV1 implements GameInterface{
 	protected Dealer dealer;
 	protected Player player;
 	
-	private final Integer 무승부 = null;
+	private final Integer 무승부 = 0;
 	private final Integer 승리 = 10;
 	private final Integer 패배 = 20;
 	
@@ -49,25 +49,34 @@ public class BlackJackServiceV1 implements GameInterface{
 		int playerScore = 0; // 플레이어 총점
 		int dealerScore = 0; // 딜러 총점
 		
-//		playerScore = player.getScore();
-//		
-//		dealerScore = dealer.getScore();
-//		
-		if(dealerScore < 17) {
-			this.cardDraw(dealer, 1);
-			dealerScore = dealer.getScore();
+		playerScore = player.getScore();
+		
+		dealerScore = dealer.getScore();
+		
+		if(playerScore < 17) {
+			System.out.println("카드의 총점은 17이상이어야 합니다.");
+			System.out.println("카드를 한장 더 뽑습니다.");
+			this.cardDraw(player, 1);
+			
 		}
 		
-//		if()
+		if(dealerScore < 17) {
+			this.cardDraw(dealer, 1);
+		}
 		
+		if(playerScore > dealerScore) {
+			return 승리;
+		} else if (playerScore == dealerScore) {
+			return 무승부;
+		} else if (playerScore < dealerScore) {
+			return 패배;
+		}
 		return null;
-		
-		
 		
 	}
 
 	@Override
-	public void printResult() {
+	public void printResult(Integer result) {
 		// TODO Auto-generated method stub
 		
 	}
