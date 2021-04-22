@@ -89,6 +89,7 @@ public class BlackJackServiceV1 implements BlackJackService {
 		System.out.println(card.get(1).getGamerCard() + "입니다.");
 		this.addCard();
 		
+		
 //		System.out.println(this.takeCard());
 //		System.out.println(takeCard);
 //	
@@ -107,16 +108,23 @@ public class BlackJackServiceV1 implements BlackJackService {
 			System.out.println("카드를 추가하시겠습니까??");
 			System.out.print("(Y / N)");
 			String yesORno = scan.nextLine();
+			
+			System.out.println(gamerScore);
+			
+			
 			if(yesORno.equals("Y")) {
-				takeCard = this.takeCard();
-				card.get(gamerIndex).setGamerCard(takeCard);
-				card.get(gamerIndex).setGamerScore(score);
-				gamerIndex++;
 				
 				for(int i = 0 ; i < gamerIndex ; i++) {
 					System.out.print(card.get(i).getGamerCard() + "\t");
 					gamerScore += card.get(i).getGamerScore(); 
 				}
+				
+				takeCard = this.takeCard();
+				card.get(gamerIndex).setGamerCard(takeCard);
+				card.get(gamerIndex).setGamerScore(score);
+				gamerScore += score;
+				gamerIndex++;
+				
 				if( gamerScore >21) {
 					System.out.println("카드의 합이 21이 넘어 당신의 패배입니다.");
 					return;
@@ -128,6 +136,11 @@ public class BlackJackServiceV1 implements BlackJackService {
 				System.out.printf("당신의 카드의 합은 %d 입니다\n", gamerScore);
 				continue;
 			}else if(yesORno.equals("N")) {
+				
+				for(int i = 0 ; i < gamerIndex ; i++) {
+					System.out.print(card.get(i).getGamerCard() + "\t");
+					gamerScore += card.get(i).getGamerScore(); 
+				}
 				
 				if(gamerScore <= 16) {
 					System.out.println("카드의 합이 17 이상이어야 합니다.");
